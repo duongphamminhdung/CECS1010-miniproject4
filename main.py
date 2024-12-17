@@ -1,9 +1,9 @@
 from utils import Passenger, Flight, Reservation
 import tkinter as tk
-from tkinter import messagebox, Scrollbar
-import sys
+from tkinter import messagebox, Scrollbar, PhotoImage
+import os, sys
 import json
-
+import base64
 
 def update_data(action:str = None, d: dict= None):
     if action == 'add':
@@ -23,6 +23,23 @@ def update_data(action:str = None, d: dict= None):
                 for j in val.keys():
                     del data[key][j]
 
+def pay(passport_number):
+    for widget in root.winfo_children():
+        widget.destroy()
+    paying_frame = tk.Frame(root, padx=10, pady=10).pack()
+    if reservations[passport_number].seat_number[0] <= 6:
+        price = '$400 ~ 10.000.000 VND'
+    else:
+        price = '$200 ~ 5.000.000 VND'
+    tk.Label(paying_frame, text="Price", font=("Arial", 14)).pack(padx=14,pady=10)
+    tk.Label(paying_frame, text=price, font=("Arial", 16)).pack(padx=14,pady=10)
+    tk.Label(paying_frame, text='20577267 ACB', font=("Arial", 20)).pack(padx=14,pady=10)
+    if qr_img:
+        tk.Label(paying_frame, image=qr_img).pack()
+    tk.Label(paying_frame, text='Please include your Reservation ID in your tranfer', font=("Arial", 16)).pack(padx=14,pady=10)
+    
+    tk.Button(paying_frame, text="Back", command=lambda p=passport_number:display_flight_details(p)).pack(side = 'right')
+
 
 def display_flight_details(passport_number):
     # Clear the main window
@@ -38,8 +55,11 @@ def display_flight_details(passport_number):
     seat = str(reservation.seat_number[0]+1)+alphabet[reservation.seat_number[1]] 
     flight_info = f"Flight: {reservation.flight_number}, Seat: {seat}, Departure time: {flights[reservation.flight_number].departure_time}"
     tk.Label(details_frame, text=flight_info).pack(pady=5)
-    tk.Button(details_frame, text="Cancel", command=lambda p=passport_number: cancel_reservation(p)).pack(side="right")
-    tk.Button(details_frame, text="Back", command=sign_in_sign_up).pack(side="left")
+    
+    # Btns = tk.Label(root).pack()
+    tk.Button(details_frame, text="Back", command=sign_in_sign_up).pack(side = 'left')
+    tk.Button(details_frame, text="Cancel", command=lambda p=passport_number: cancel_reservation(p)).pack(side='left')
+    tk.Button(details_frame, text="Pay", command=lambda p=passport_number:pay(p)).pack(side='right')
 
     # tk.Button(details_frame, text="Exit", command=window_exit).pack(pady=10)
 
@@ -106,7 +126,7 @@ def choose_seat(flight_number, passport_number):
     root.config(height=buttons[0][0].winfo_height()*(row), width=buttons[0][0].winfo_width()*(col))
     # print(buttons[0][0].winfo_height()*(row), buttons[0][0].winfo_width()*(col))
 
-def display_flight_board(passport_number):
+def display_flight_board(passport_number, fil=None):
     # Clear the main window
     for widget in root.winfo_children():
         widget.destroy()
@@ -114,21 +134,31 @@ def display_flight_board(passport_number):
     if passengers[passport_number].reservation:
         display_flight_details(passport_number)
     else:
+        if fil:
+            print(fil)
         # Display flight data board with reservation option
-        flight_board_frame = tk.Frame(root, padx=10, pady=10)
-        flight_board_frame.pack(padx=10, pady=10, fill="both", expand=True)
+        flight_board_frame = tk.Frame(root, padx=10)
+        flight_board_frame.pack(padx=10, fill="both", expand=True)
 
         tk.Label(flight_board_frame, text="Flight Data Board", font=("Arial", 16)).pack(pady=10)
 
         def reserve_flight(flight_number):
             choose_seat(flight_number, passport_number)
-
+        filt_entr = tk.Entry(root, width=30)
+        filt_entr.pack(side='left', padx=10, pady=10)
+        filt_button = tk.Button(root, text="Filter", command= lambda: display_flight_board(passport_number, filt_entr.get())).pack(side='right', padx=10, pady=10)
+        num = 0
         for flight_number, flight in flights.items():
+            if fil and fil not in flight.destination:
+                continue
             flight_info = f"Flight: {flight.flight_number}, Destination: {flight.destination}, Time: {flight.departure_time}"
             frame = tk.Frame(flight_board_frame)
             frame.pack(pady=2, fill="x")
             tk.Label(frame, text=flight_info).pack(side="left")
             tk.Button(frame, text="Reserve", command=lambda f=flight.flight_number: reserve_flight(f)).pack(side="right")
+            num += 1
+        if num == 0:
+            tk.Label(frame, text="No flight to your destination.").pack(side="left")
 
         tk.Button(flight_board_frame, text="Exit", command=window_exit).pack(pady=10)
 
@@ -215,6 +245,10 @@ def sign_in_sign_up():
 
 # Run the application
 try:
+    if os.path.isfile('qr.png'):
+        qr_img = PhotoImage(file='qr.png').subsample(4)
+    else:
+        qr_img = None
     alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     filename = "data.json"
     with open(filename) as f:
