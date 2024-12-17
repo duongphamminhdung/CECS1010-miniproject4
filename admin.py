@@ -92,6 +92,29 @@ def add_flight():
 
     # tk.Button(details_frame, text="Exit", command=window_exit).pack(pady=10)
 
+def view_passenger_on_flight(flight_number):
+    for widget in root.winfo_children():
+        widget.destroy()
+    passenger_board = tk.Frame(root, padx=10, pady=10)
+    passenger_board.pack(padx=10, pady=10, fill="both", expand=True)
+    num = 0
+    for passport_number, resv in reservations.items():
+        if resv.flight_number == flight_number:
+            num += 1
+            p = passengers[passport_number]
+            row, col = resv.seat_number
+            seat = str(row+1)+alphabet[col]
+            passenger_inf4 = f"Seat {seat}, Passenger name: {p.get_name()}, Age: {p.get_age()}"
+            frame = tk.Frame(passenger_board)
+            frame.pack(pady=2, fill="x")
+            tk.Label(frame, text=passenger_inf4).pack(side="left")
+    if num == 0:
+        passenger_inf4 = f"There are no passenger on this flight"
+        frame = tk.Frame(passenger_board)
+        frame.pack(pady=2, fill="x")
+        tk.Label(frame, text=passenger_inf4).pack(side="left")
+    tk.Button(root, text="Back", command=display_flight_board).pack(pady=10)
+
 def display_flight_board():
     # Clear the main window
     for widget in root.winfo_children():
@@ -108,10 +131,10 @@ def display_flight_board():
         frame = tk.Frame(flight_board_frame)
         frame.pack(pady=2, fill="x")
         tk.Label(frame, text=flight_info).pack(side="left")
-        # tk.Button(frame, text="Reserve", command=lambda f=flight.flight_number: reserve_flight(f)).pack(side="right")
+        tk.Button(frame, text="View", command=lambda f=flight.flight_number: view_passenger_on_flight(f)).pack(side="right")
     
     tk.Button(flight_board_frame, text="Add", command=add_flight).pack(side="right")
-    tk.Button(flight_board_frame, text="Exit", command=window_exit).pack(pady=10)
+    tk.Button(flight_board_frame, text="Exit", command=window_exit).pack(side='left')
 
 def sign_in(password):
 
@@ -152,9 +175,19 @@ try:
         data = json.load(f)
     # print(data)
     # print(data['passengers'])
+    reservations = {}
+    for i, r in data['reservations'].items():
+        reservations[i] = Reservation(r['flight_number'], r['seat_number'], r['_Reservation__res_id'])
+    passengers = {}
+    for n, i in data['passengers'].items():
+        passengers[n] = Passenger(i['_Passenger__name'], i['_Passenger__age'], i['_Passenger__passport_number'], i['reservation'])
+    passport_numbers = [i for i in passengers.keys()]
     flights = {}
     for n, f in data['flights'].items():
         flights[n] = Flight(f['flight_number'], f['destination'], f['departure_time'], avai=f['available_seats'])
+    print(reservations)
+    print(passport_numbers)
+    print(passengers)
     admin_sign_in()
     def window_exit():
         close = messagebox.askyesno("Exit?", "Are you sure you want to exit?")
