@@ -52,7 +52,7 @@ def display_flight_details(passport_number):
 
     tk.Label(details_frame, text="Reservation Details", font=("Arial", 16)).pack(pady=10)
     tk.Label(details_frame, text=f"Reservation ID: {reservation.get_res_id()}").pack(pady=5)
-    seat = str(reservation.seat_number[0]+1)+alphabet[reservation.seat_number[1]] 
+    seat = str(reservation.seat_number[0]+1)+alphabet[reservation.seat_number[1]]
     flight_info = f"Flight: {reservation.flight_number}, Seat: {seat}, Departure time: {flights[reservation.flight_number].departure_time}"
     tk.Label(details_frame, text=flight_info).pack(pady=5)
     

@@ -51,10 +51,956 @@ class Reservation(AirlineSystem):
 
     def get_res_id(self):
         return self.__res_id
-    
-if os.path.isfile('json.data'):
-    with open('json.data', 'r') as f:
-        data = json.load(f)
+
+
+if __name__ == '__main__':
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if os.path.isfile('data.json'):
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+    else:
+        ## this is sample data for the program, please colapse it
+        data = {
+        "passengers": {
+            "234": {
+                "_Passenger__name": "234",
+                "_Passenger__age": 234,
+                "_Passenger__passport_number": "234",
+                "reservation": None
+            },
+            "4567485": {
+                "_Passenger__name": "fdgh",
+                "_Passenger__age": 56,
+                "_Passenger__passport_number": "4567485",
+                "reservation": "KS000002"
+            },
+            "35745674": {
+                "_Passenger__name": "sdfgdfg",
+                "_Passenger__age": 43,
+                "_Passenger__passport_number": "35745674",
+                "reservation": "KS000003"
+            },
+            "209384029384": {
+                "_Passenger__name": "kjsadfjk",
+                "_Passenger__age": 23,
+                "_Passenger__passport_number": "209384029384",
+                "reservation": None
+            }
+        },
+        "passport_numbers": [
+            "234",
+            "4567485"
+        ],
+        "flights": {
+            "AA123": {
+                "flight_number": "AA123",
+                "destination": "New York",
+                "departure_time": "10:00 AM",
+                "available_seats": [
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                ]
+            },
+            "BA456": {
+                "flight_number": "BA456",
+                "destination": "London",
+                "departure_time": "12:00 PM",
+                "available_seats": [
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                ]
+            },
+            "CA789": {
+                "flight_number": "CA789",
+                "destination": "Toronto",
+                "departure_time": "02:00 PM",
+                "available_seats": [
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                ]
+            },
+            "VN2345": {
+                "flight_number": "VN2345",
+                "destination": "Vietnam",
+                "departure_time": "13:45 PM",
+                "available_seats": [
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                ],
+                "passengers": []
+            },
+            "KS20394": {
+                "flight_number": "KS20394",
+                "destination": "VinUni",
+                "departure_time": "12:34 PM",
+                "available_seats": [
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                ],
+                "passengers": []
+            }
+        },
+        "reservations": {
+            "4567485": {
+                "flight_number": "AA123",
+                "seat_number": [
+                    3,
+                    5
+                ],
+                "_Reservation__res_id": "KS000002"
+            },
+            "35745674": {
+                "flight_number": "BA456",
+                "seat_number": [
+                    7,
+                    2
+                ],
+                "_Reservation__res_id": "KS000003"
+            }
+        }
+    }
     reservations = {}
     for i, r in data['reservations'].items():
         reservations[i] = Reservation(r['flight_number'], r['seat_number'], r['_Reservation__res_id'])
@@ -65,951 +1011,7 @@ if os.path.isfile('json.data'):
     flights = {}
     for n, f in data['flights'].items():
         flights[n] = Flight(f['flight_number'], f['destination'], f['departure_time'], avai=f['available_seats'])
-else:
-    ## this is sample data for the program, please colapse it
-    data = {
-	"passengers": {
-		"234": {
-			"_Passenger__name": "234",
-			"_Passenger__age": 234,
-			"_Passenger__passport_number": "234",
-			"reservation": null
-		},
-		"4567485": {
-			"_Passenger__name": "fdgh",
-			"_Passenger__age": 56,
-			"_Passenger__passport_number": "4567485",
-			"reservation": "KS000002"
-		},
-		"35745674": {
-			"_Passenger__name": "sdfgdfg",
-			"_Passenger__age": 43,
-			"_Passenger__passport_number": "35745674",
-			"reservation": "KS000003"
-		},
-		"209384029384": {
-			"_Passenger__name": "kjsadfjk",
-			"_Passenger__age": 23,
-			"_Passenger__passport_number": "209384029384",
-			"reservation": null
-		}
-	},
-	"passport_numbers": [
-		"234",
-		"4567485"
-	],
-	"flights": {
-		"AA123": {
-			"flight_number": "AA123",
-			"destination": "New York",
-			"departure_time": "10:00 AM",
-			"available_seats": [
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					1
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				]
-			]
-		},
-		"BA456": {
-			"flight_number": "BA456",
-			"destination": "London",
-			"departure_time": "12:00 PM",
-			"available_seats": [
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					1,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				]
-			]
-		},
-		"CA789": {
-			"flight_number": "CA789",
-			"destination": "Toronto",
-			"departure_time": "02:00 PM",
-			"available_seats": [
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				]
-			]
-		},
-		"VN2345": {
-			"flight_number": "VN2345",
-			"destination": "Vietnam",
-			"departure_time": "13:45 PM",
-			"available_seats": [
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					0
-				]
-			],
-			"passengers": []
-		},
-		"KS20394": {
-			"flight_number": "KS20394",
-			"destination": "VinUni",
-			"departure_time": "12:34 PM",
-			"available_seats": [
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				],
-				[
-					0,
-					0,
-					0,
-					0
-				]
-			],
-			"passengers": []
-		}
-	},
-	"reservations": {
-		"4567485": {
-			"flight_number": "AA123",
-			"seat_number": [
-				3,
-				5
-			],
-			"_Reservation__res_id": "KS000002"
-		},
-		"35745674": {
-			"flight_number": "BA456",
-			"seat_number": [
-				7,
-				2
-			],
-			"_Reservation__res_id": "KS000003"
-		}
-	}
-}
 
-if __name__ == '__main__':
     mode = 0
     if len(sys.argv) < 2:
             print('''Please choose mode 
@@ -1268,22 +1270,6 @@ if __name__ == '__main__':
                 qr_img = PhotoImage(file='qr.png').subsample(4)
             else:
                 qr_img = None
-            alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            filename = "data.json"
-            with open(filename) as f:
-                data = json.load(f)
-            # print(data)
-            # print(data['passengers'])
-            reservations = {}
-            for i, r in data['reservations'].items():
-                reservations[i] = Reservation(r['flight_number'], r['seat_number'], r['_Reservation__res_id'])
-            passengers = {}
-            for n, i in data['passengers'].items():
-                passengers[n] = Passenger(i['_Passenger__name'], i['_Passenger__age'], i['_Passenger__passport_number'], i['reservation'])
-            passport_numbers = [i for i in passengers.keys()]
-            flights = {}
-            for n, f in data['flights'].items():
-                flights[n] = Flight(f['flight_number'], f['destination'], f['departure_time'], avai=f['available_seats'])
             sign_in_sign_up()
             print(reservations)
             print(passport_numbers)
@@ -1294,14 +1280,14 @@ if __name__ == '__main__':
                     root.destroy()
                     root.quit()
                     # print(data)
-                    with open(filename, "w") as f:
+                    with open('data.json', "w") as f:
                         json.dump(data, f)
 
             root.protocol("WM_DELETE_WINDOW", window_exit)
 
             root.mainloop()
         except KeyboardInterrupt:
-            with open(filename, "w") as f:
+            with open('data.json', "w") as f:
                 json.dump(data, f)
             print("catch Keyboard Interrupt")
             pass
@@ -1470,25 +1456,7 @@ if __name__ == '__main__':
 
         # Run the application
         try:
-            alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            filename = "data.json"
-            with open(filename) as f:
-                data = json.load(f)
-            # print(data)
-            # print(data['passengers'])
-            reservations = {}
-            for i, r in data['reservations'].items():
-                reservations[i] = Reservation(r['flight_number'], r['seat_number'], r['_Reservation__res_id'])
-            passengers = {}
-            for n, i in data['passengers'].items():
-                passengers[n] = Passenger(i['_Passenger__name'], i['_Passenger__age'], i['_Passenger__passport_number'], i['reservation'])
-            passport_numbers = [i for i in passengers.keys()]
-            flights = {}
-            for n, f in data['flights'].items():
-                flights[n] = Flight(f['flight_number'], f['destination'], f['departure_time'], avai=f['available_seats'])
-            print(reservations)
-            print(passport_numbers)
-            print(passengers)
+
             admin_sign_in()
             def window_exit():
                 close = messagebox.askyesno("Exit?", "Are you sure you want to exit?")
@@ -1496,18 +1464,215 @@ if __name__ == '__main__':
                     root.destroy()
                     root.quit()
                     # print(data)
-                    with open(filename, "w") as f:
+                    with open('data.json', "w") as f:
                         json.dump(data, f)
 
             root.protocol("WM_DELETE_WINDOW", window_exit)
 
             root.mainloop()
         except KeyboardInterrupt:
-            with open(filename, "w") as f:
+            with open('data.json', "w") as f:
                 json.dump(data, f)
             print("catch Keyboard Interrupt")
             
     elif mode == '3':
-        pass
+        def clear():
+            if os.name == 'nt':
+                _ = os.system("cls")
+            else:
+                _ = os.system("clear")
+        def cancel_reservation(passport_number):
+            passengers[passport_number].reservation = None
+            data['passengers'][passport_number]['reservation'] = None
+            seat = reservations[passport_number].seat_number
+            flights[reservations[passport_number].flight_number].available_seats[seat[0]][seat[1]] = 0
+            print(f"Cancelled reservation {reservations[passport_number].get_res_id()} complete")
+            del reservations[passport_number]
+            del data['reservations'][passport_number]
+            sign_in_or_sign_up()
+        def display_flight_details(passport_number):
+            clear()
+            reservation = reservations[passport_number]
+            print("     Reservation details")
+            print(f"Reservation ID: {reservation.get_res_id()}")
+            seat = str(reservation.seat_number[0]+1)+alphabet[reservation.seat_number[1]]
+            print(f"Flight: {reservation.flight_number}, Seat: {seat}, Departure time: {flights[reservation.flight_number].departure_time}")
+            print()
+            print("""Choose
+1. Pay          Pay for your ticket
+2. Cancel       Cancel your reservation
+
+Press any other button to exit
+""")
+            option = input()
+            if option in ['1', 'Pay', 'pay']:
+                clear()
+                # print("20577267 ACB")
+                print("Payment complete")
+            elif option in ['2', 'Cancel', 'cancel']:
+                cancel_reservation(passport_number)
+        def choose_seat(flight_number, passport_number):
+            flight = flights[flight_number]
+            available_seats = flight.available_seats
+            def select_seat(row, col):
+                print(f"You have choosen seat {str(row+1)+alphabet[col]} on flight {flight.flight_number}.")
+
+                res_id = f"KS{'0'*(6-len(str(len(reservations)+1)))}{len(reservations)+1}"
+                reservations[passport_number] = Reservation(flight_number, [row, col], res_id)
+                passengers[passport_number].reservation = res_id
+                data['passengers'][passport_number]['reservation'] = res_id
+                # print(reservations[passport_number].__dict__)
+                data['reservations'][passport_number]=reservations[passport_number].__dict__
+                # print(flights[flight_number].__dict__)
+                flights[flight_number].available_seats[row][col] = 1
+                data['flights'][flight_number]['available_seats'][row][col] = 1
+            clear()
+            print("Select your seat")
+            print()
+            for row in range(len(available_seats)):
+                print("  ", end = '')
+                for col in range(len(available_seats[row])):
+                    print("", end = "   ")
+                    seat = str(row+1)+alphabet[col]
+                    if available_seats[row][col] == 1:
+                        print(" "*len(seat), end = ' '*(4-len(seat)))
+                    else:
+                        print(seat, end = ' '*(4-len(seat)))
+                print()
+                print()
+            choosen_seat = None
+            while True:
+                i = input("Choose your seat. Input should be in type (26-G)")
+                if i == 'Exit':
+                    break
+                print()
+                if '-' not in i:
+                    print()
+                    continue
+                try:
+                    row = int(i.split('-')[0]) - 1
+                    col = alphabet.index(i.split('-')[1])
+                    if available_seats[row][col] == 1:
+                        print("This seat is not available, please choose another one")
+                        print("type Exit to exit")
+                        print()
+                        continue
+                except IndexError as e:
+                    print("Please choose a seat on the screen.")
+                    print("type Exit to exit")
+                    print()
+                    continue
+                except Exception as e:
+                    continue
+
+                choosen_seat = [row, col]
+                print(f"Your seat number is {i}. Proceed?")
+                yn = input("Y y/ N n")
+                print()
+                while yn not in ['Y', 'y', 'n', 'N']:
+                    print("Y/y to continue or N/n to re-choose your seat")
+                    yn = input("Y y/ N, n")
+                    print()
+                if yn in ["Y", "y"]:
+                    select_seat(choosen_seat[0], choosen_seat[1])
+                else:
+                    continue
+                break
+            if i == 'Exit':
+                display_flight_board(passport_number)
+            else:
+                display_flight_details(passport_number)
+                
+        def display_flight_board(passport_number, fil = None):
+            clear()
+            if passengers[passport_number].reservation:
+                display_flight_details(passport_number)
+            else:
+                print("         Flight Data Board")
+                print()
+                c = 0
+                dist = {}
+                for flight_number, flight in flights.items():
+                    if fil and fil not in flight.destination:
+                        continue
+                    c += 1
+                    flight_info = f"{c}. Flight: {flight.flight_number}, Destination: {flight.destination}, Time: {flight.departure_time}"
+                    dist[c] = flight.flight_number
+                    print(flight_info)
+                print()
+                option = input("""Choose a flight (1, 2, 3...) or filter the destination by typing your destination
+Press enter to show all flight
+""")
+                if option.isdigit():
+                    choose_seat(dist[int(option)], passport_number)
+                else:
+                    display_flight_board(passport_number, option)
+                
+        def sign_in():
+            clear()
+            passport_number = input("Enter your passport number: ")
+            while passport_number not in passengers.keys():
+                passport_number = input("Wrong passport number, choose 1 to sign up with your passport number or type again")
+                if passport_number == 1:
+                    break
+            if passport_number == 1:
+                sign_up()
+            display_flight_board(passport_number)
+            
+        def sign_up():
+            clear()
+            print("Create a new account with your passport number!")
+            while True:
+                name = input("Input your name: ")
+                if not name:
+                    print()
+                    print("Error! Name cannot be blank")
+                    print()
+                    continue
+                break
+            while True:
+                try:
+                    age = int(input("Input your age: "))
+                    break
+                except ValueError:
+                    print()
+                    print("Error! Age must be number")
+                    print()
+            while True:
+                passport_number = input("Input your passport number: ")
+                if not passport_number or passport_number in passengers.keys():
+                    print()
+                    print("This passport number has already signed up")
+                    print()
+                    continue
+                break
+            print(f"Sign Up Successful!\nName: {name}\nAge: {age}\nPassport ID: {passport_number}")
+            passengers[passport_number] = Passenger(name, age, passport_number)
+            print("Please sign in using your passport ID")
+            
+            sign_in_or_sign_up()
+                
+        def sign_in_or_sign_up():
+            clear()
+            option = input('''
+Welcome, sign in with your account or create a new one!
+1. Sign in
+2. Sign up
+''')
+            while option not in ['1', '2']:
+                option = input('''
+Please choose an appropriate option
+1. Sign in
+2. Sign up
+''')
+            if option == '1':
+                sign_in()
+            elif option == '2':
+                sign_up()
+        clear()
+        sign_in_or_sign_up()
+        with open('data.json', "w") as f:
+            json.dump(data, f)
+
     else:
         print("Please rerun the program and choose an appropriate mode")
