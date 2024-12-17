@@ -4,7 +4,7 @@
 			"_Passenger__name": "234",
 			"_Passenger__age": 234,
 			"_Passenger__passport_number": "234",
-			"reservation": "KS000002"
+			"reservation": null
 		},
 		"4567485": {
 			"_Passenger__name": "fdgh",
@@ -304,7 +304,7 @@
 					0,
 					0,
 					0,
-					1
+					0
 				],
 				[
 					0,
@@ -853,14 +853,6 @@
 		}
 	},
 	"reservations": {
-		"234": {
-			"flight_number": "BA456",
-			"seat_number": [
-				2,
-				5
-			],
-			"_Reservation__res_id": "KS000002"
-		},
 		"4567485": {
 			"flight_number": "AA123",
 			"seat_number": [

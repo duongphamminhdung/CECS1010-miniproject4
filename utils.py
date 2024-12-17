@@ -1,6 +1,8 @@
 class AirlineSystem:
     def __init__(self):
-        pass    
+        pass
+    def __str__(self):
+        return "This is the parent class AirlineSystem"
 
 
 class Flight(AirlineSystem):
