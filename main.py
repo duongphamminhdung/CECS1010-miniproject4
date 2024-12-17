@@ -101,6 +101,8 @@ def choose_seat(flight_number, passport_number):
                 # buttons[-1].append(tk.Button(seat_frame, text=seat, command=already, bg='blue'))
             buttons[-1][-1].grid(row=row, column=col, sticky='news')
         # rows.pack(fill=tk.BOTH, expand=tk.TRUE)
+    back_btn = tk.Button(root, text="Back", command=lambda s=passport_number: display_flight_board(s))
+    back_btn.pack()
     root.config(height=buttons[0][0].winfo_height()*(row), width=buttons[0][0].winfo_width()*(col))
     # print(buttons[0][0].winfo_height()*(row), buttons[0][0].winfo_width()*(col))
 
