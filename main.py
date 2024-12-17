@@ -4,7 +4,7 @@ from tkinter import messagebox, Scrollbar
 import sys
 import json
 
-        
+
 def update_data(action:str = None, d: dict= None):
     if action == 'add':
         for key, val in d.items():
@@ -34,7 +34,7 @@ def display_flight_details(passport_number):
     details_frame.pack(padx=10, pady=10, fill="both", expand=True)
 
     tk.Label(details_frame, text="Reservation Details", font=("Arial", 16)).pack(pady=10)
-    tk.Label(details_frame, text=f"Reservation ID: {reservation.res_id}").pack(pady=5)
+    tk.Label(details_frame, text=f"Reservation ID: {reservation.get_res_id()}").pack(pady=5)
     seat = str(reservation.seat_number[0]+1)+alphabet[reservation.seat_number[1]] 
     flight_info = f"Flight: {reservation.flight_number}, Seat: {seat}, Departure time: {flights[reservation.flight_number].departure_time}"
     tk.Label(details_frame, text=flight_info).pack(pady=5)
@@ -44,13 +44,13 @@ def display_flight_details(passport_number):
     # tk.Button(details_frame, text="Exit", command=window_exit).pack(pady=10)
 
 def cancel_reservation(passport_number):
-    cancel = messagebox.askyesno("Exit?", f"Are you sure you want to cancel reservation {reservations[passport_number].res_id}?")
+    cancel = messagebox.askyesno("Exit?", f"Are you sure you want to cancel reservation {reservations[passport_number].get_res_id()}?")
     if cancel:
         passengers[passport_number].reservation = None
         data['passengers'][passport_number]['reservation'] = None
         seat = reservations[passport_number].seat_number
         flights[reservations[passport_number].flight_number].available_seats[seat[0]][seat[1]] = 0
-        messagebox.showinfo("Cancel", f"Cancelation of reservation {reservations[passport_number].res_id} complete")
+        messagebox.showinfo("Cancel", f"Cancelation of reservation {reservations[passport_number].get_res_id()} complete")
         del reservations[passport_number]
         del data['reservations'][passport_number]
         sign_in_sign_up()
@@ -134,7 +134,7 @@ def sign_in(passport_number):
 
     if passport_number:
         if passport_number in passport_numbers:
-            messagebox.showinfo("Sign In", f"Welcome back! {passengers[passport_number].name}")
+            messagebox.showinfo("Sign In", f"Welcome back! {passengers[passport_number].get_name()}")
             display_flight_board(passport_number)
         else:
             messagebox.showerror("Error", "This ID has not been registered.")
@@ -182,7 +182,7 @@ def sign_in_sign_up():
     sign_in_passport_number = tk.Entry(sign_in_frame, width=30)
     sign_in_passport_number.grid(row=0, column=1, padx=5, pady=5)
 
-    sign_in_button = tk.Button(sign_in_frame, text="Sign In", command=lambda: sign_in(    passport_number = sign_in_passport_number.get()))
+    sign_in_button = tk.Button(sign_in_frame, text="Sign In", command=lambda: sign_in(passport_number = sign_in_passport_number.get()))
     sign_in_button.grid(row=1, column=0, columnspan=2, pady=5)
 
     # Sign Up Frame
@@ -221,10 +221,10 @@ try:
     # print(data['passengers'])
     reservations = {}
     for i, r in data['reservations'].items():
-        reservations[i] = Reservation(r['flight_number'], r['seat_number'], r['res_id'])
+        reservations[i] = Reservation(r['flight_number'], r['seat_number'], r['_Reservation__res_id'])
     passengers = {}
     for n, i in data['passengers'].items():
-        passengers[n] = Passenger(i['name'], i['age'], i['passport_number'], i['reservation'])
+        passengers[n] = Passenger(i['_Passenger__name'], i['_Passenger__age'], i['_Passenger__passport_number'], i['reservation'])
     passport_numbers = [i for i in passengers.keys()]
     flights = {}
     for n, f in data['flights'].items():
