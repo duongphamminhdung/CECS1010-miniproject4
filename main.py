@@ -1179,7 +1179,7 @@ if __name__ == '__main__':
                     tk.Button(frame, text="Reserve", command=lambda f=flight.flight_number: reserve_flight(f)).pack(side="right")
                     num += 1
                 if num == 0:
-                    tk.Label(frame, text="No flight to your destination.").pack(side="left")
+                    tk.Label(root, text="No flight to your destination.").pack(side="left")
 
                 tk.Button(flight_board_frame, text="Exit", command=window_exit).pack(pady=10)
 
