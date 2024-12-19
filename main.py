@@ -1648,6 +1648,12 @@ Press enter to show all flight
                 break
             print(f"Sign Up Successful!\nName: {name}\nAge: {age}\nPassport ID: {passport_number}")
             passengers[passport_number] = Passenger(name, age, passport_number)
+            data['passengers'][passport_number] = {
+                            "_Passenger__name": name,
+                            "_Passenger__age": age,
+                            "_Passenger__passport_number": passport_number,
+                            "reservation": None
+                        }            
             print("Please sign in using your passport ID")
             
             sign_in_or_sign_up()
@@ -1670,9 +1676,13 @@ Please choose an appropriate option
             elif option == '2':
                 sign_up()
         clear()
-        sign_in_or_sign_up()
-        with open('data.json', "w") as f:
-            json.dump(data, f)
-
+        try:
+            sign_in_or_sign_up()
+            with open('data.json', "w") as f:
+                json.dump(data, f)
+        except KeyboardInterrupt as e:
+            print("Saving data to data.json")
+            with open('data.json', "w") as f:
+                json.dump(data, f)
     else:
         print("Please rerun the program and choose an appropriate mode")
