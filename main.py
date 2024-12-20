@@ -52,7 +52,12 @@ class Reservation(AirlineSystem):
     def get_res_id(self):
         return self.__res_id
 
-
+def clear():
+    if os.name == 'nt':
+        _ = os.system("cls")
+    else:
+        _ = os.system("clear")
+        
 if __name__ == '__main__':
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if os.path.isfile('data.json'):
@@ -1020,7 +1025,7 @@ if __name__ == '__main__':
     3. Prompt interact for passenger
     4. Prompt interact for admin
                 
-    Enter 1, 2 or 3 to choose
+    Enter 1, 2, 3 or 4 to choose
                 ''')
             mode = input()
     else:
@@ -1477,11 +1482,7 @@ if __name__ == '__main__':
             print("catch Keyboard Interrupt")
             
     elif mode == '3':
-        def clear():
-            if os.name == 'nt':
-                _ = os.system("cls")
-            else:
-                _ = os.system("clear")
+
         def cancel_reservation(passport_number):
             passengers[passport_number].reservation = None
             data['passengers'][passport_number]['reservation'] = None
@@ -1686,6 +1687,37 @@ Please choose an appropriate option
             with open('data.json', "w") as f:
                 json.dump(data, f)
     elif mode == '4':
-        pass
+        def add_new_flight():
+            inputs = False
+            while not inputs:
+                flight_num = input("Input flight number: ")
+                flight_dest = input("Input destination: ")
+                dept_time = input("Input departure time (e.g: 12:34 AM):" )
+                num_row = input("# rows on the plane: ")
+                num_col = input("# columns on the plane")
+                if flight_num and flight_dest and dept_time:
+                    while ("AM" not in dept_time and "PM" not in dept_time) or ":" not in dept_time:
+                        print("Input departure time (e.g: 12:34 AM):")
+                        dept_time = input()
+                    if not (num_col and num_row and num_col.isdigit() and num_row.isdigit()):
+                        pass
+                else:
+                    print("Please fill all the info to continue")
+                    continue
+                inputs = True
+                
+        clear()
+        print("Administration sign in.")
+        print("""
+1. Add a new flight
+2. View current flights""")
+        opt = input()
+        while opt not in ['1', '2']:
+            print("Choose 1 or 2 to continue")
+            opt = input()
+        if opt == '1':
+            add_new_flight()
+        else:
+            view_flight_board()
     else:
         print("Please rerun the program and choose an appropriate mode")
