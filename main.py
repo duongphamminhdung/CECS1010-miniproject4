@@ -1018,6 +1018,7 @@ if __name__ == '__main__':
     1. User Interface for passenger (view flight, reserve flight, cancel flight)
     2. User Interface for admin (add flight, view passengers)
     3. Prompt interact for passenger
+    4. Prompt interact for admin
                 
     Enter 1, 2 or 3 to choose
                 ''')
@@ -1684,5 +1685,7 @@ Please choose an appropriate option
             print("Saving data to data.json")
             with open('data.json', "w") as f:
                 json.dump(data, f)
+    elif mode == '4':
+        pass
     else:
         print("Please rerun the program and choose an appropriate mode")

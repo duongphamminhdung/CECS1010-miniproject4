@@ -16,6 +16,8 @@ class Flight(AirlineSystem):
         else:
             self.available_seats = [[0]*cols]*rows
         self.passengers = []
+    def __str__(self):
+        return f"This is flight {self.flight_number}, destination: {self.destination} and and departs at {self.departure_time}"
 
 class Passenger(AirlineSystem):
     def __init__(self, name, age, passport_number, reserv=None):
