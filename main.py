@@ -3,6 +3,7 @@ from tkinter import messagebox, Scrollbar, PhotoImage
 import os, sys
 import json
 import base64
+import time
 
 class AirlineSystem:
     def __init__(self):
@@ -1100,6 +1101,8 @@ if __name__ == '__main__':
                 messagebox.showinfo("Cancel", f"Cancelation of reservation {reservations[passport_number].get_res_id()} complete")
                 del reservations[passport_number]
                 del data['reservations'][passport_number]
+                
+                time.sleep(3)
                 sign_in_sign_up()
             
 
@@ -1687,6 +1690,61 @@ Please choose an appropriate option
             with open('data.json', "w") as f:
                 json.dump(data, f)
     elif mode == '4':
+        def view_passenger_on_flight(flight_number):
+            clear()
+            num = 0
+            flight = flights[flight_number]
+            print(f"        Flight: {flight.flight_number}, Destination: {flight.destination}, Time: {flight.departure_time}")
+            for passport_number, resv in reservations.items():
+                if resv.flight_number == flight_number:
+                    num += 1
+                    p = passengers[passport_number]
+                    row, col = resv.seat_number
+                    seat = str(row+1)+alphabet[col]
+                    passenger_inf4 = f"Seat {seat}, Passenger name: {p.get_name()}, Age: {p.get_age()}"
+                    print(passenger_inf4)
+            if num == 0:
+                print("There is no passenger on this flight")
+                print()
+
+                time.sleep(2)
+                view_flight_board()
+            else:
+                opt = input("""
+Enter back to show flight data board to press any key to exit
+""")
+                if opt in ['back', 'Back']:
+                    view_flight_board()
+        def view_flight_board():
+            clear()
+            print("Flight Data Board")
+            for j, flight in enumerate(flights.values()):
+                flight_info = f"{j+1}. Flight: {flight.flight_number}, Destination: {flight.destination}, Time: {flight.departure_time}"
+                print(flight_info)
+            print()
+            print("""
+1. Add  -> add a new flight 
+2. Exit -> exit program
+3. Choose a number to display the flight
+""")
+            opt = input()
+            if opt == "Add" or opt == 'add':
+                add_new_flight()
+            elif opt == "exit" or opt == "Exit":
+                pass
+            else:
+                while True:
+                    if not opt.isdigit():
+                        opt = input("Please choose a right number")
+                        continue
+                    if '.' in str(int(opt)) or int(opt) > j + 1:
+                        opt = input("Please choose a number on the board \n")
+                        continue
+                    print()
+                    opt = int(opt)
+                    break
+                flight_number = list(flights.keys())[opt-1]
+                view_passenger_on_flight(flight_number)
         def add_new_flight():
             inputs = False
             while not inputs:
@@ -1694,23 +1752,33 @@ Please choose an appropriate option
                 flight_dest = input("Input destination: ")
                 dept_time = input("Input departure time (e.g: 12:34 AM):" )
                 num_row = input("# rows on the plane: ")
-                num_col = input("# columns on the plane")
-                if flight_num and flight_dest and dept_time:
+                num_col = input("# columns on the plane: ")
+                if flight_num and flight_dest and dept_time and num_col and num_row:
                     while ("AM" not in dept_time and "PM" not in dept_time) or ":" not in dept_time:
                         print("Input departure time (e.g: 12:34 AM):")
                         dept_time = input()
-                    if not (num_col and num_row and num_col.isdigit() and num_row.isdigit()):
-                        pass
+                    if not  (num_col.isdigit() and num_row.isdigit()):
+                        print("Error: number of rows and number of columns must be number")
                 else:
                     print("Please fill all the info to continue")
+                    clear()
                     continue
                 inputs = True
-                
+            num_row, num_col = int(num_row), int(num_col)
+            new_f = Flight(flight_num, flight_dest, dept_time, num_row, num_col)
+            data['flights'][flight_num] = new_f.__dict__
+            flights[flight_num] = new_f
+            print(f"Succesfully added flight {flight_num} going to {flight_dest} on {dept_time}")
+
+            time.sleep(2)
+            print()
+            view_flight_board()
         clear()
         print("Administration sign in.")
         print("""
 1. Add a new flight
-2. View current flights""")
+2. View current flights
+""")
         opt = input()
         while opt not in ['1', '2']:
             print("Choose 1 or 2 to continue")
