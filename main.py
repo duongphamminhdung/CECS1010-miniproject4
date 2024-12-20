@@ -1661,7 +1661,6 @@ Press enter to show all flight
             sign_in_or_sign_up()
                 
         def sign_in_or_sign_up():
-            clear()
             option = input('''
 Welcome, sign in with your account or create a new one!
 1. Sign in
@@ -1679,6 +1678,7 @@ Please choose an appropriate option
                 sign_up()
         clear()
         try:
+            clear()
             sign_in_or_sign_up()
             with open('data.json', "w") as f:
                 json.dump(data, f)
